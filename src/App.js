@@ -1,24 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import axios from "axios";
+
+import { Button } from "antd";
+
+import "./App.css";
+
+// The ReactDOM is rendering <App/> in index.js
 
 function App() {
+  const [auth, setAuth] = useState(0);
+
+  function requestAccess() {
+    axios
+      .get("/login")
+      .then(function (response) {
+        console.log("login response:");
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Button type="primary" onClick={requestAccess}>
+        Grant Spotify Permission
+      </Button>
     </div>
   );
 }
