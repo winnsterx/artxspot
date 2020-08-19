@@ -17,7 +17,6 @@ function App() {
 
   useEffect(() => {
     if (token === "" && window.location.hash !== "") {
-      console.log("Fetching the token now that we are logged in");
       const hash = window.location.hash
         .substring(1)
         .split("&")
@@ -42,28 +41,15 @@ function App() {
       redirectUri;
   }
 
-  // function getPlaylists() {
-  //   const playlists = axios
-  //     .get("https://api.spotify.com/v1/me/playlists", {
-  //       headers: { Authorization: "Bearer " + token },
-  //     })
-  //     .then((response) => {
-  //       console.log(response);
-  //     })
-  //     .catch((error) => {
-  //       console.log("Token: ", token);
-  //       console.log(error);
-  //     });
-  //   return playlists;
-  // }
-
   function getPlaylists() {
-    spotifyApi
+    const playlists = spotifyApi
       .getUserPlaylists()
       .then((response) => {
         console.log(response);
       })
       .catch((error) => console.log(error));
+
+    return playlists;
   }
 
   return (
