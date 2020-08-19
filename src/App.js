@@ -2,13 +2,16 @@ import React, { useState, useEffect } from "react";
 import { clientId, redirectUri } from "./config";
 
 // import axios from "axios";
-import { Button } from "antd";
-import "./App.css";
+import { Button, Layout, Row, Col } from "antd";
+import "./App.less";
 
 // Lightweight wrapper for Spotify Web API, see
 // https://github.com/JMPerez/spotify-web-api-js/blob/master/src/spotify-web-api.js
 import SpotifyWebApi from "spotify-web-api-js";
+
+// Declaring variables after importing everything
 const spotifyApi = new SpotifyWebApi();
+const { Footer, Content } = Layout;
 
 // The ReactDOM is rendering <App/> in index.js
 
@@ -57,9 +60,41 @@ function App() {
       {window.location.hash || token ? (
         <Button onClick={getPlaylists}>Authorized with the Access Token</Button>
       ) : (
-        <Button type="primary" onClick={requestAccess}>
-          Grant Spotify Permission
-        </Button>
+        <Layout>
+          <Content>
+            {/* The style minHeight is necessary to ensure the row takes up the whole page */}
+            <Row
+              type="flex"
+              justify="center"
+              align="middle"
+              style={{ minHeight: "90vh" }}
+            >
+              <Col>
+                <Button
+                  type="primary"
+                  style={{
+                    fontWeight: "bold",
+                    // padding: "10px 50px",
+                  }}
+                  size="large"
+                  onClick={requestAccess}
+                >
+                  LOG IN WITH SPOTIFY
+                </Button>
+              </Col>
+            </Row>
+          </Content>
+          <Footer
+            style={{
+              textAlign: "right",
+              backgroundColor: "#1DA57A",
+              fontWeight: "bold",
+              color: "white",
+            }}
+          >
+            For funzies, by @winnayx (2020)
+          </Footer>
+        </Layout>
       )}
     </div>
   );
