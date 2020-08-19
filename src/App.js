@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { clientId, redirectUri } from "./config";
 
-// import axios from "axios";
+import axios from "axios";
 import { Button, Layout, Row, Col } from "antd";
 import "./App.less";
 
 // Lightweight wrapper for Spotify Web API, see
 // https://github.com/JMPerez/spotify-web-api-js/blob/master/src/spotify-web-api.js
 import SpotifyWebApi from "spotify-web-api-js";
+
+import Playlists from "./components/Playlists";
 
 // Declaring variables after importing everything
 const spotifyApi = new SpotifyWebApi();
@@ -30,7 +32,9 @@ function App() {
           }
           return initial;
         }, {});
+
       spotifyApi.setAccessToken(hash.access_token);
+      console.log("Token in APP.js: ", hash.access_token);
       setToken(hash.access_token);
     }
   }, [token]);
@@ -44,21 +48,22 @@ function App() {
       redirectUri;
   }
 
-  function getPlaylists() {
-    const playlists = spotifyApi
-      .getUserPlaylists()
-      .then((response) => {
-        console.log(response);
-      })
+  function getMet() {
+    axios
+      .get(
+        "https://collectionapi.metmuseum.org/public/collection/v1/objects?departmentIds=1"
+      )
+      .then((response) => console.log(response.data))
       .catch((error) => console.log(error));
-
-    return playlists;
   }
 
   return (
     <div className="App">
       {window.location.hash || token ? (
-        <Button onClick={getPlaylists}>Authorized with the Access Token</Button>
+        <Layout>
+          <Button onClick={getMet}>Get Moma</Button>
+          <Playlists token={token} />
+        </Layout>
       ) : (
         <Layout>
           <Content>
