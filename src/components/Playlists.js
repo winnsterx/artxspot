@@ -1,49 +1,75 @@
 import React, { useState, useEffect } from "react";
-import { Button, Select } from "antd";
+import { Button, Card, Row, Col } from "antd";
 
 import SpotifyWebApi from "spotify-web-api-js";
 
 const spotifyApi = new SpotifyWebApi();
-const { Option } = Select;
 
 function Playlists({ token }) {
   const [playlists, setPlaylists] = useState({});
+  const gridStyle = {
+    width: "25%",
+    textAlign: "center",
+  };
 
   useEffect(() => {
+    if (!Object.keys(playlists).length) {
+      getPlaylists();
+    }
     console.log("Playlists: ", playlists);
+    console.log("playlists length: ", Object.keys(playlists).length);
   });
 
-  function getPlaylists() {
+  async function getPlaylists() {
     spotifyApi.setAccessToken(token);
-    const tmp = spotifyApi
-      .getUserPlaylists()
-      .then((response) => {
-        console.log(response);
-        return response;
-      })
-      .catch((error) => console.log(error));
-    // PROBLEM: IT IS NOT RETURNING THE PROMISED ITEM
-    // STACKOVERFLOW: RETURN FROM PROMISE THEN AXIOS
-    console.log("tmp: ", Promise.resolve(tmp));
-    setPlaylists(tmp);
+    let pls = await getPlaylistsHelper();
+    if (pls) {
+      setPlaylists(pls.items);
+    } else {
+      console.log("Error in fetching playlists. Check request in Spotify API.");
+    }
+  }
+
+  async function getPlaylistsHelper() {
+    try {
+      return await spotifyApi.getUserPlaylists();
+    } catch (error) {
+      return null;
+    }
   }
 
   function selectPlaylist(playlist) {
-    console.log(playlist);
+    console.log("Playlist selected: ", playlist);
+    spotifyApi
+      .getPlaylistTracks(playlist.id)
+      .then((response) => console.log("tracks: ", response))
+      .catch((error) => console.log(error));
+  }
+
+  function buildPlaylists() {
+    let arr = [];
+    for (let i = 0; i < playlists.length; i++) {
+      let curr = playlists[i];
+      arr.push(
+        <Col span={8}>
+          <div onClick={() => selectPlaylist(curr)}>
+            <Card
+              size="small"
+              title={curr.name}
+              hoverable
+              cover={<img alt="example" src={curr.images[0].url} />}
+            ></Card>
+          </div>
+        </Col>
+      );
+    }
+    return arr;
   }
 
   return (
     <div>
       Select Playlist:
-      <Select
-        showSearch
-        placeholder="Select a Playlist"
-        onChange={selectPlaylist}
-        style={{ width: 200 }}
-      >
-        <Option value="number 1">Playlist 1</Option>
-      </Select>
-      <Button onClick={getPlaylists}>getplaylists</Button>
+      <Row gutter={16}> {buildPlaylists()}</Row>
     </div>
   );
 }

@@ -7,12 +7,10 @@ import "./App.less";
 
 // Lightweight wrapper for Spotify Web API, see
 // https://github.com/JMPerez/spotify-web-api-js/blob/master/src/spotify-web-api.js
-import SpotifyWebApi from "spotify-web-api-js";
 
 import Playlists from "./components/Playlists";
 
 // Declaring variables after importing everything
-const spotifyApi = new SpotifyWebApi();
 const { Footer, Content } = Layout;
 
 // The ReactDOM is rendering <App/> in index.js
@@ -33,8 +31,6 @@ function App() {
           return initial;
         }, {});
 
-      spotifyApi.setAccessToken(hash.access_token);
-      console.log("Token in APP.js: ", hash.access_token);
       setToken(hash.access_token);
     }
   }, [token]);
