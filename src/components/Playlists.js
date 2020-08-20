@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Card, Row, Col } from "antd";
+import Playlist from "./Playlist";
 
 import SpotifyWebApi from "spotify-web-api-js";
 
@@ -7,10 +8,7 @@ const spotifyApi = new SpotifyWebApi();
 
 function Playlists({ token }) {
   const [playlists, setPlaylists] = useState({});
-  const gridStyle = {
-    width: "25%",
-    textAlign: "center",
-  };
+  const [tracks, setTracks] = useState([]);
 
   useEffect(() => {
     if (!Object.keys(playlists).length) {
@@ -18,6 +16,7 @@ function Playlists({ token }) {
     }
     console.log("Playlists: ", playlists);
     console.log("playlists length: ", Object.keys(playlists).length);
+    console.log("tracks: ", tracks);
   });
 
   async function getPlaylists() {
@@ -38,12 +37,24 @@ function Playlists({ token }) {
     }
   }
 
-  function selectPlaylist(playlist) {
-    console.log("Playlist selected: ", playlist);
-    spotifyApi
-      .getPlaylistTracks(playlist.id)
-      .then((response) => console.log("tracks: ", response))
-      .catch((error) => console.log(error));
+  async function selectPlaylist(playlist) {
+    console.log("Playlist ID: ", playlist);
+    let tracks = await getPlaylistTracks(playlist.id);
+    if (tracks) {
+      setTracks(tracks);
+    } else {
+      console.log(
+        "Error in fetching playlist's tracks. Check request in Spotify API."
+      );
+    }
+  }
+
+  async function getPlaylistTracks(id) {
+    try {
+      return await spotifyApi.getPlaylistTracks(id);
+    } catch (error) {
+      return null;
+    }
   }
 
   function buildPlaylists() {
@@ -68,8 +79,11 @@ function Playlists({ token }) {
 
   return (
     <div>
-      Select Playlist:
-      <Row gutter={16}> {buildPlaylists()}</Row>
+      {tracks.length === 0 ? (
+        <Row gutter={16}> {buildPlaylists()}</Row>
+      ) : (
+        <Playlist />
+      )}
     </div>
   );
 }
