@@ -57,7 +57,6 @@ function App() {
     <div className="App">
       {window.location.hash || token ? (
         <Layout>
-          <Button onClick={getMet}>Get Moma</Button>
           <Playlists token={token} />
         </Layout>
       ) : (

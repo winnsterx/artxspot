@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Input, Tag, Row } from "antd";
+import { Input, Tag, Row, Button } from "antd";
 import SpotifyWebApi from "spotify-web-api-js";
 
 const spotifyApi = new SpotifyWebApi();
@@ -7,6 +7,7 @@ const { Search } = Input;
 
 function Playlist() {
   const [tags, setTags] = useState([]);
+  const [complete, setComplete] = useState(false);
   const colors = [
     "magenta",
     "red",
@@ -23,17 +24,23 @@ function Playlist() {
 
   useEffect(() => {
     console.log("tags: ", tags);
+    if (tags.length === 5 && complete === false) {
+      setComplete(true);
+    }
   });
 
-  function generateTag(e) {
-    setTags(tags.concat(e.target.value));
+  function addTag(e) {
+    if (tags.includes(e.target.value)) {
+      alert("Add a different word!");
+    } else {
+      setTags(tags.concat(e.target.value));
+    }
   }
 
   function removeTag(e) {
     let tagRemoved =
       e.target.parentNode.parentNode.textContent ||
       e.target.parentNode.parentNode.parentNode.textContent;
-    console.log("To be removed: ", tagRemoved);
     setTags(tags.filter((e) => e !== tagRemoved));
   }
 
@@ -50,19 +57,36 @@ function Playlist() {
     return tags_arr;
   }
 
+  function generateArt() {
+    console.log("generate art");
+  }
+
   return (
-    <div>
-      <Row type="flex" justify="center" align="middle">
+    <div style={{ height: "100vh" }}>
+      <Row
+        type="flex"
+        justify="center"
+        align="bottom"
+        style={{ height: "50%" }}
+      >
         <Input
           allowClear
           size="large"
           placeholder="Input five words"
-          onPressEnter={generateTag}
-          style={{ width: "50%" }}
+          onPressEnter={addTag}
+          style={{ width: "40%" }}
+          disabled={complete}
         />
       </Row>
-      <Row type="flex" justify="center" align="middle">
+      <br />
+      <Row type="flex" justify="center" align="top" style={{ height: "3%" }}>
         {renderTags()}
+      </Row>
+      <br />
+      <Row type="flex" justify="center" align="top" style={{ height: "47%" }}>
+        <Button type="primary" disabled={!complete} onClick={generateArt}>
+          Generate Cover Art!
+        </Button>
       </Row>
     </div>
   );
