@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Input, Tag, Row, Button } from "antd";
-import SpotifyWebApi from "spotify-web-api-js";
-
-const spotifyApi = new SpotifyWebApi();
-const { Search } = Input;
 
 function Playlist() {
   const [tags, setTags] = useState([]);
+  const [value, setValue] = useState("");
   const [complete, setComplete] = useState(false);
   const colors = [
     "magenta",
@@ -23,7 +20,8 @@ function Playlist() {
   ];
 
   useEffect(() => {
-    console.log("tags: ", tags);
+    console.log("Tags: ", tags);
+    console.log("Completed: ", complete);
     if (tags.length === 5 && complete === false) {
       setComplete(true);
     }
@@ -34,10 +32,13 @@ function Playlist() {
   });
 
   function addTag(e) {
-    if (tags.includes(e.target.value)) {
+    let tmp = e.target.value;
+    setValue("");
+    if (tags.includes(tmp)) {
       alert("Add a different word!");
     } else {
-      setTags(tags.concat(e.target.value));
+      console.log("e target: ", e.target.value);
+      setTags(tags.concat(tmp));
     }
   }
 
@@ -65,6 +66,10 @@ function Playlist() {
     console.log("generate art");
   }
 
+  function typing(e) {
+    setValue(e.target.value);
+  }
+
   return (
     <div style={{ height: "100vh" }}>
       <Row
@@ -77,6 +82,8 @@ function Playlist() {
           allowClear
           size="large"
           placeholder="Input five words"
+          value={value}
+          onChange={typing}
           onPressEnter={addTag}
           style={{ width: "40%" }}
           disabled={complete}
