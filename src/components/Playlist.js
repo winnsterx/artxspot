@@ -27,6 +27,10 @@ function Playlist() {
     if (tags.length === 5 && complete === false) {
       setComplete(true);
     }
+
+    if (tags.length < 5 && complete === true) {
+      setComplete(false);
+    }
   });
 
   function addTag(e) {
