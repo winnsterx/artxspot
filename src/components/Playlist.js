@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Input, Tag, Row, Button } from "antd";
+import Generator from "./Generator";
 
-function Playlist() {
+function Playlist({ tracks }) {
   const [tags, setTags] = useState([]);
   const [value, setValue] = useState("");
   const [complete, setComplete] = useState(false);
+  const [generate, setGenerate] = useState(false);
   const colors = [
     "magenta",
     "red",
@@ -29,7 +31,7 @@ function Playlist() {
     if (tags.length < 5 && complete === true) {
       setComplete(false);
     }
-  });
+  }, [tags, complete]);
 
   function addTag(e) {
     let tmp = e.target.value;
@@ -64,6 +66,7 @@ function Playlist() {
 
   function generateArt() {
     console.log("generate art");
+    setGenerate(true);
   }
 
   function typing(e) {
@@ -71,34 +74,41 @@ function Playlist() {
   }
 
   return (
-    <div style={{ height: "100vh" }}>
-      <Row
-        type="flex"
-        justify="center"
-        align="bottom"
-        style={{ height: "50%" }}
-      >
-        <Input
-          allowClear
-          size="large"
-          placeholder="Input five words"
-          value={value}
-          onChange={typing}
-          onPressEnter={addTag}
-          style={{ width: "40%" }}
-          disabled={complete}
-        />
-      </Row>
-      <br />
-      <Row type="flex" justify="center" align="top" style={{ height: "3%" }}>
-        {renderTags()}
-      </Row>
-      <br />
-      <Row type="flex" justify="center" align="top" style={{ height: "47%" }}>
-        <Button type="primary" disabled={!complete} onClick={generateArt}>
-          Generate Cover Art!
-        </Button>
-      </Row>
+    <div style={{ minHeight: "100vh" }}>
+      {generate ? (
+        <Generator tracks={tracks} tags={tags} />
+      ) : (
+        <div>
+          {/* minHeight in Style checks that the row is occupying the area of the page correctly */}
+          <Row
+            type="flex"
+            justify="center"
+            align="bottom"
+            style={{ minHeight: "45vh" }}
+          >
+            <Input
+              allowClear
+              size="large"
+              placeholder="Input five words"
+              value={value}
+              onChange={typing}
+              onPressEnter={addTag}
+              style={{ width: "40%" }}
+              disabled={complete}
+            />
+          </Row>
+          <br />
+          <Row type="flex" justify="center" align="top">
+            {renderTags()}
+          </Row>
+          <br />
+          <Row type="flex" justify="center" align="top">
+            <Button type="primary" disabled={!complete} onClick={generateArt}>
+              Generate Cover Art!
+            </Button>
+          </Row>
+        </div>
+      )}
     </div>
   );
 }

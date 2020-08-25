@@ -79,12 +79,11 @@ function Playlists({ token }) {
 
   return (
     <div>
-      {/* {tracks.length === 0 ? (
+      {tracks.length === 0 ? (
         <Row gutter={16}> {buildPlaylists()}</Row>
       ) : (
-        <Playlist />
-      )} */}
-      <Playlist />
+        <Playlist tracks={tracks} />
+      )}
     </div>
   );
 }
