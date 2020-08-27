@@ -4,7 +4,9 @@ import { Spin, Typography, Row } from "antd";
 const { Title } = Typography;
 
 function Generator({ tracks, tags }) {
-  function generateArt() {}
+  function generateArt() {
+    // checkout runaway ML
+  }
   return (
     <div>
       <Row justify="center" align="bottom" style={{ minHeight: "45vh" }}>
