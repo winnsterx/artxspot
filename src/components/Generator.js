@@ -6,6 +6,7 @@ const { Title } = Typography;
 function Generator({ tracks, tags }) {
   function generateArt() {
     // checkout runaway ML
+    // just broke up yesterday lol
   }
   return (
     <div>
