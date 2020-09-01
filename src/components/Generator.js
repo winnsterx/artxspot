@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Spin, Typography, Row } from "antd";
-import axios from "axios";
 import request from "superagent";
 
 const { Title } = Typography;
 const apiUrl = "https://api.artsy.net/api/search?type=";
 
 function Generator({ tracks, tags }) {
-  // let queryString = "";
-
   function generateArt() {
     request
       .get("/generate")
@@ -33,8 +30,8 @@ function Generator({ tracks, tags }) {
   // Returns the songNames array of the first 20 songs
   function collectNamesAndTags() {
     let songs = tracks.items;
-    let limit = 20;
-    if (songs.length < 20) {
+    let limit = 10;
+    if (songs.length < limit) {
       limit = songs.length;
     }
     for (let i = 0; i < limit; i++) {
