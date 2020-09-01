@@ -40,7 +40,7 @@ function Generator({ tracks, tags }) {
       let n = currSongName.indexOf("(");
       currSongName = currSongName.substring(
         0,
-        n != -1 ? n : currSongName.length
+        n !== -1 ? n : currSongName.length
       ); // strips string after '-' to get just name
       tags.push(currSongName);
     }
