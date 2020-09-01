@@ -22,6 +22,7 @@ function Generator({ tracks, tags }) {
           .then((res) => {
             let artworks = res.body._embedded.results;
             console.log("artsy's relevant artwork: ", artworks);
+            console.log("token: ", response.text);
             let chosen = artworks[Math.floor(Math.random() * artworks.length)];
             setArtwork(chosen);
           })
