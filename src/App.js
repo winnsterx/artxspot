@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { clientId, redirectUri } from "./config";
 
-import axios from "axios";
 import { Button, Layout, Row, Col } from "antd";
 import "./App.less";
 
@@ -42,15 +41,6 @@ function App() {
       clientId +
       "&scope=playlist-read-private%20playlist-read-collaborative%20playlist-modify-public%20user-read-recently-played%20playlist-modify-private%20ugc-image-upload%20user-follow-modify%20user-follow-read%20user-library-read%20user-library-modify%20user-read-private%20user-read-email%20user-top-read%20user-read-playback-state&response_type=token&redirect_uri=" +
       redirectUri;
-  }
-
-  function getMet() {
-    axios
-      .get(
-        "https://collectionapi.metmuseum.org/public/collection/v1/objects?departmentIds=1"
-      )
-      .then((response) => console.log(response.data))
-      .catch((error) => console.log(error));
   }
 
   return (
