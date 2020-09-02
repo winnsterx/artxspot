@@ -22,8 +22,6 @@ function Playlist({ tracks }) {
   ];
 
   useEffect(() => {
-    console.log("Tags: ", tags);
-    console.log("Completed: ", complete);
     if (tags.length === 5 && complete === false) {
       setComplete(true);
     }
@@ -65,7 +63,6 @@ function Playlist({ tracks }) {
   }
 
   function generateArt() {
-    console.log("generate art");
     setGenerate(true);
   }
 
@@ -74,11 +71,11 @@ function Playlist({ tracks }) {
   }
 
   return (
-    <div style={{ minHeight: "100vh" }}>
+    <div className="page">
       {generate ? (
         <Generator tracks={tracks} tags={tags} />
       ) : (
-        <div>
+        <div className="page">
           {/* minHeight in Style checks that the row is occupying the area of the page correctly */}
           <Row
             type="flex"
@@ -104,7 +101,7 @@ function Playlist({ tracks }) {
           <br />
           <Row type="flex" justify="center" align="top">
             <Button type="primary" disabled={!complete} onClick={generateArt}>
-              Generate Cover Art!
+              generate cover art
             </Button>
           </Row>
         </div>

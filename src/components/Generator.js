@@ -52,19 +52,17 @@ function Generator({ tracks, tags }) {
   }
 
   return (
-    <div>
+    <div className="page">
       {artwork ? (
         <Artwork artwork={artwork} />
       ) : (
-        <div>
-          <Row justify="center" align="bottom" style={{ minHeight: "45vh" }}>
+        <div className="page">
+          <Row justify="center" align="middle" style={{ minHeight: "100%" }}>
             <Typography>
-              <Title level={2}>Generating Cover Art...</Title>
+              <Title level={3}>generating...</Title>
+              <Spin size="large" />
               {generateArt()}
             </Typography>
-          </Row>
-          <Row justify="center">
-            <Spin size="large" />
           </Row>
         </div>
       )}

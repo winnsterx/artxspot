@@ -14,9 +14,6 @@ function Playlists({ token }) {
     if (!Object.keys(playlists).length) {
       getPlaylists();
     }
-    console.log("Playlists: ", playlists);
-    console.log("playlists length: ", Object.keys(playlists).length);
-    console.log("tracks: ", tracks);
   });
 
   async function getPlaylists() {
@@ -38,7 +35,6 @@ function Playlists({ token }) {
   }
 
   async function selectPlaylist(playlist) {
-    console.log("Playlist ID: ", playlist);
     let tracks = await getPlaylistTracks(playlist.id);
     if (tracks) {
       setTracks(tracks);
@@ -78,7 +74,7 @@ function Playlists({ token }) {
   }
 
   return (
-    <div>
+    <div className="page">
       {tracks.length === 0 ? (
         <Row gutter={16}> {buildPlaylists()}</Row>
       ) : (

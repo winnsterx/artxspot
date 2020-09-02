@@ -27,21 +27,22 @@ function Artwork({ artwork }) {
   const thumbnail = artwork._links.thumbnail.href;
 
   return (
-    <div>
+    <div className="page">
       {console.log("artwork: ", artwork)}
-      {console.log("name: ", name)}
-      <Row justify="center">
-        <Col>
-          <img src={thumbnail} alt={title} width="500" height="500" />
+      <Row justify="space-around" align="middle" style={{ minHeight: "100%" }}>
+        <Col span={2} />
+        <Col span={12}>
+          <img src={thumbnail} alt={title} width="90%" />
         </Col>
-        <Col>
-          <Title level={2}>
-            <i>{name}</i>
+        <Col span={1} />
+        <Col span={7} style={{ textAlign: "left" }}>
+          <Title level={2}>{title}</Title>
+          <Title level={3}>{description.toLowerCase()}</Title>
+          <Title level={3}>
+            <a href={permalink}>learn more / get more a more HD look lolll</a>
           </Title>
-          <Title>{artist}</Title>
-          <Title>{isNaN(parsedYear) ? "Year Unavailable" : year}</Title>
-          <Title>{description}</Title>
         </Col>
+        <Col span={2} />
       </Row>
     </div>
   );

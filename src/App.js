@@ -67,14 +67,13 @@ function App() {
               type="flex"
               justify="center"
               align="middle"
-              style={{ minHeight: "90vh" }}
+              style={{ minHeight: "100%" }}
             >
               <Col>
                 <Button
                   type="primary"
                   style={{
                     fontWeight: "bold",
-                    // padding: "10px 50px",
                   }}
                   size="large"
                   onClick={requestAccess}
