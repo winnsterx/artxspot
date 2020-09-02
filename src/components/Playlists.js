@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Card, Row, Col } from "antd";
-import Playlist from "./Playlist";
 
 import SpotifyWebApi from "spotify-web-api-js";
+import Generator from "./Generator";
 
 const spotifyApi = new SpotifyWebApi();
 
@@ -78,7 +78,7 @@ function Playlists({ token }) {
       {tracks.length === 0 ? (
         <Row gutter={16}> {buildPlaylists()}</Row>
       ) : (
-        <Playlist tracks={tracks} />
+        <Generator tracks={tracks} />
       )}
     </div>
   );

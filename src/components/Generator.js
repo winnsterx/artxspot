@@ -6,14 +6,14 @@ import Artwork from "./Artwork";
 const { Title } = Typography;
 const apiUrl = "https://api.artsy.net/api/search?type=";
 
-function Generator({ tracks, tags }) {
+function Generator({ tracks }) {
   const [artwork, setArtwork] = useState(null);
 
   function generateArt() {
     request
       .get("/generate")
       .then((response) => {
-        let query = collectNamesAndTags();
+        let query = collectNames();
         request
           .get(apiUrl)
           .set("X-Xapp-Token", response.text)
@@ -32,8 +32,9 @@ function Generator({ tracks, tags }) {
   }
 
   // Returns the songNames array of the first 20 songs
-  function collectNamesAndTags() {
+  function collectNames() {
     let songs = tracks.items;
+    let songNames = [];
     let limit = 10;
     if (songs.length < limit) {
       limit = songs.length;
@@ -46,9 +47,9 @@ function Generator({ tracks, tags }) {
         0,
         n !== -1 ? n : currSongName.length
       ); // strips string after '-' to get just name
-      tags.push(currSongName);
+      songNames.push(currSongName);
     }
-    return tags.join(" ");
+    return songNames.join(" ");
   }
 
   return (
