@@ -1,26 +1,24 @@
 version: "3.8"
 services:
-  # ######################
-  # # Setup node container
-  # ######################
-  # server:
-  #   build: .
-  #   ports:
-  #     - 8080:8080
-  #   volumes:
-  #     - .:/usr/app
-  #   command: nodemon server.js
+  #   # ######################
+  #   # # Setup node container
+  #   # ######################
+  #   # server:
+  #   #   build: .
+  #   #   ports:
+  #   #     - 8080:8080
+  #   #   volumes:
+  #   #     - .:/usr/app
+  #   #   command: nodemon server.js
 
-  ########################
-  # Setup client container
-  ########################
+  #   ########################
+  #   # Setup client container
+  #   ########################
   client:
+    stdin_open: true
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - 3000:3000
-    volumes:
-      - ./src:/usr/app/src
-      - ./public:/usr/app/publc
     command: yarn start
