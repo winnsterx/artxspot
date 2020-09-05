@@ -1,0 +1,6 @@
+# speeds up build process because node_modules/ wont be sent to Docker daemon
+node_modules
+build
+.dockerignore
+Dockerfile
+Dockerfile.prod
