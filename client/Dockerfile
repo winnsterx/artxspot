@@ -18,6 +18,8 @@ RUN yarn install
 # copy local files into container
 COPY . /app/client
 
+EXPOSE 3000
+
 CMD ["yarn", "start"]
 
 

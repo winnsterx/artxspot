@@ -1,6 +1,19 @@
 version: "3.7"
 
 services:
+  ######################
+  # Setup node container
+  ######################
+  server:
+    container_name: server
+    build: ./server
+    ports:
+      - 8080:8080
+    volumes:
+      - ./server/src:/app/server/src
+    command: nodemon src/server.js
+    stdin_open: true
+
   ########################
   # Setup client container
   ########################
@@ -12,5 +25,7 @@ services:
     volumes:
       - ./client/src:/app/client/src
       - ./client/public:/app/client/public
+    links:
+      - server
     command: yarn start
     stdin_open: true
