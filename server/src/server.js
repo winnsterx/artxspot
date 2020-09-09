@@ -1,5 +1,6 @@
 var express = require("express"); // Express web server framework
 var request = require("superagent");
+var os = require("os");
 
 var clientID = "503e2e0e5362808c901a",
   clientSecret = "a88889d6d635b5174682d08538bca175",
@@ -23,5 +24,6 @@ app.get("/", function (req, res) {
 });
 
 app.listen(process.env.PORT || 8080, function () {
+  console.log("Hostname: ", os.hostname());
   console.log("metspot listening on port ", process.env.PORT || 8080);
 });
