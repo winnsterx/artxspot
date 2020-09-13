@@ -5,6 +5,7 @@ import SpotifyWebApi from "spotify-web-api-js";
 import Generator from "./Generator";
 
 const spotifyApi = new SpotifyWebApi();
+const { Meta } = Card;
 
 function Playlists({ token }) {
   const [playlists, setPlaylists] = useState({});
@@ -53,30 +54,56 @@ function Playlists({ token }) {
     }
   }
 
-  function buildPlaylists() {
+  function buildPlaylistsRow(currRow) {
     let arr = [];
-    for (let i = 0; i < playlists.length; i++) {
-      let curr = playlists[i];
+    let end = Math.min(currRow * 3 + 3, playlists.length);
+    arr.push(<Col span={2} />);
+    for (let j = currRow * 3; j < end; j++) {
+      let curr = playlists[j];
+      if (j === currRow * 3 + 1) arr.push(<Col span={1} />);
       arr.push(
-        <Col span={8}>
+        <Col span={6}>
           <div onClick={() => selectPlaylist(curr)}>
             <Card
               size="small"
-              title={curr.name}
               hoverable
-              cover={<img alt="example" src={curr.images[0].url} />}
-            ></Card>
+              cover={
+                <img
+                  alt={curr.name + "'s cover photo"}
+                  src={curr.images[0].url}
+                  className="card-cover"
+                />
+              }
+            >
+              <Meta title={curr.name} />
+            </Card>
           </div>
         </Col>
       );
+      if (j === currRow * 3 + 1) arr.push(<Col span={1} />);
+    }
+    arr.push(<Col span={2} />);
+
+    return arr;
+  }
+
+  function buildPlaylists() {
+    let arr = [];
+    let numPlaylists = playlists.length;
+    let numCols = 3;
+    let numRows = Math.ceil(numPlaylists / numCols);
+    for (let i = 0; i < numRows; i++) {
+      arr.push(<Row style={{ marginTop: "2%" }}>{buildPlaylistsRow(i)}</Row>);
     }
     return arr;
+
+    console.log("Hey");
   }
 
   return (
     <div className="page">
       {tracks.length === 0 ? (
-        <Row gutter={16}> {buildPlaylists()}</Row>
+        <div>{buildPlaylists()}</div>
       ) : (
         <Generator tracks={tracks} />
       )}

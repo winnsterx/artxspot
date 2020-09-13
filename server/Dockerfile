@@ -17,6 +17,7 @@ RUN yarn global add nodemon
 
 # copy local files into container
 COPY . /app/server
+
 EXPOSE 8080
 
 CMD ["nodemon", "src/server.js"]
