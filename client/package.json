@@ -13,6 +13,7 @@
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "craco-less": "^1.17.0",
+    "firebase": "^7.21.1",
     "global": "^4.4.0",
     "nodemon": "^2.0.4",
     "react": "^16.13.1",
@@ -42,5 +43,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://server:8080"
+  "proxy": "http://35.245.138.80"
 }

@@ -96,8 +96,6 @@ function Playlists({ token }) {
       arr.push(<Row style={{ marginTop: "2%" }}>{buildPlaylistsRow(i)}</Row>);
     }
     return arr;
-
-    console.log("Hey");
   }
 
   return (

@@ -36,6 +36,7 @@ function App() {
 
   function requestAccess() {
     console.log("Authorize request received.");
+    console.log("Window href: ", window.location.href);
     window.location.href =
       "https://accounts.spotify.com/authorize?client_id=" +
       clientId +
