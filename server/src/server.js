@@ -10,12 +10,12 @@ var clientID = "503e2e0e5362808c901a",
 var app = express();
 
 app.get("/generate", function (req, res) {
+  console.log("Calling generate, trying to make a request call in server.js");
   request
     .post(apiUrl)
     .send({ client_id: clientID, client_secret: clientSecret })
-    .then((response) => {
+    .end(function (response) {
       xappToken = response.body.token;
-      res.send(xappToken);
     });
 });
 

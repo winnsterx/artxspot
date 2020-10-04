@@ -39,10 +39,6 @@ function Playlists({ token }) {
     let tracks = await getPlaylistTracks(playlist.id);
     if (tracks) {
       setTracks(tracks);
-    } else {
-      console.log(
-        "Error in fetching playlist's tracks. Check request in Spotify API."
-      );
     }
   }
 

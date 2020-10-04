@@ -2,33 +2,39 @@ import React, { useState } from "react";
 import { Spin, Typography, Row } from "antd";
 import request from "superagent";
 import Artwork from "./Artwork";
+import { artsyClientId, artsyClientSecret, artstSearchUrl } from "../config";
 
 const { Title } = Typography;
-const apiUrl = "https://api.artsy.net/api/search?type=";
 
 function Generator({ tracks }) {
   const [artwork, setArtwork] = useState(null);
 
   function generateArt() {
+    var apiUrl = "https://api.artsy.net/api/tokens/xapp_token",
+      xappToken;
+
+    let query = collectNames();
+
     request
-      .get("/generate")
-      .then((response) => {
-        let query = collectNames();
+      .post(apiUrl)
+      .send({ client_id: artsyClientId, client_secret: artsyClientSecret })
+      .then(function (response) {
+        xappToken = response.body.token;
+        console.log("xapptoken: ", xappToken);
+
         request
-          .get(apiUrl)
-          .set("X-Xapp-Token", response.text)
+          .get(artstSearchUrl)
+          .set("X-Xapp-Token", xappToken)
           .query({ q: query })
           .query({ type: "artwork" })
           .then((res) => {
             let artworks = res.body._embedded.results;
             console.log("artsy's relevant artwork: ", artworks);
-            console.log("token: ", response.text);
             let chosen = artworks[Math.floor(Math.random() * artworks.length)];
             setArtwork(chosen);
           })
           .catch((err) => console.log(err));
-      })
-      .catch((error) => console.log(error));
+      });
   }
 
   // Returns the songNames array of the first 20 songs
