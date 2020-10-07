@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Spin, Typography, Row } from "antd";
+// import Link from "react-router-dom";
+
 import request from "superagent";
 import Artwork from "./Artwork";
 import { artsyClientId, artsyClientSecret, artstSearchUrl } from "../config";
@@ -61,7 +63,9 @@ function Generator({ tracks }) {
   return (
     <div className="page">
       {artwork ? (
-        <Artwork artwork={artwork} />
+        <div>
+          <Artwork artwork={artwork} />
+        </div>
       ) : (
         <div className="page">
           <Row justify="center" align="middle" style={{ minHeight: "100%" }}>
