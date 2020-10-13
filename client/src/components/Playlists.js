@@ -101,11 +101,7 @@ function Playlists({ token }) {
       {tracks.length === 0 || (tracks.length !== 0 && redoPlaylist) ? (
         <div>{buildPlaylists()}</div>
       ) : (
-        <Generator
-          tracks={tracks}
-          redoPlaylist={redoPlaylist}
-          setRedoPlaylist={setRedoPlaylist}
-        />
+        <Generator tracks={tracks} setRedoPlaylist={setRedoPlaylist} />
       )}
     </div>
   );

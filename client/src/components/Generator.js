@@ -8,7 +8,7 @@ import { artsyClientId, artsyClientSecret, artstSearchUrl } from "../config";
 
 const { Title } = Typography;
 
-function Generator({ tracks, redoPlaylist, setRedoPlaylist }) {
+function Generator({ tracks, setRedoPlaylist }) {
   const [artwork, setArtwork] = useState(null);
 
   function generateArt() {
@@ -64,7 +64,11 @@ function Generator({ tracks, redoPlaylist, setRedoPlaylist }) {
     <div className="page">
       {artwork ? (
         <div>
-          <Artwork artwork={artwork} setRedoPlaylist={setRedoPlaylist} />
+          <Artwork
+            artwork={artwork}
+            setRedoPlaylist={setRedoPlaylist}
+            setArtwork={setArtwork}
+          />
         </div>
       ) : (
         <div className="page">

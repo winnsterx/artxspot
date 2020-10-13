@@ -3,16 +3,21 @@ import { Row, Col, Typography, Button } from "antd";
 
 const { Title } = Typography;
 
-function Artwork({ artwork, setRedoPlaylist }) {
+function Artwork({ artwork, setRedoPlaylist, setArtwork }) {
   const title = artwork.title;
 
   const description = artwork.description;
   const permalink = artwork._links.permalink.href;
   const thumbnail = artwork._links.thumbnail.href;
 
-  function goBack() {
+  function anotherPlaylist() {
     console.log("Clicked go back");
     setRedoPlaylist(true);
+  }
+
+  function anotherArt() {
+    console.log("Clicked another art");
+    setArtwork(null);
   }
 
   return (
@@ -40,9 +45,20 @@ function Artwork({ artwork, setRedoPlaylist }) {
               fontWeight: "bold",
             }}
             size="large"
-            onClick={goBack}
+            onClick={anotherPlaylist}
           >
             another playlist
+          </Button>
+          <br /> <br />
+          <Button
+            type="primary"
+            style={{
+              fontWeight: "bold",
+            }}
+            size="large"
+            onClick={anotherArt}
+          >
+            another art
           </Button>
         </Col>
         <Col span={2} />
