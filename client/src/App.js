@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 
 import "./App.less";
 
@@ -36,20 +41,20 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Switch>
+        {/* <Switch>
           <Route path="/callback">
-            <Playlists token={token} tracks={tracks} setTracks={setTracks} />
+            {token ? <Redirect to="/playlists" /> : <Login />}
           </Route>
           <Route path="/playlists">
             <Playlists token={token} tracks={tracks} setTracks={setTracks} />
           </Route>
           <Route path="/artwork">
-            <Generator tracks={tracks} />
+            <Generator tracks={tracks} redoPlaylist={} />
           </Route>
           <Route exact path="/">
             <Login />
           </Route>
-        </Switch>
+        </Switch> */}
       </div>
     </Router>
   );

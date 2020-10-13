@@ -8,7 +8,7 @@ import { artsyClientId, artsyClientSecret, artstSearchUrl } from "../config";
 
 const { Title } = Typography;
 
-function Generator({ tracks }) {
+function Generator({ tracks, redoPlaylist }) {
   const [artwork, setArtwork] = useState(null);
 
   function generateArt() {

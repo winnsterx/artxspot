@@ -6,8 +6,6 @@ const { Footer, Content } = Layout;
 
 function Login() {
   function requestAccess() {
-    console.log("Authorize request received.");
-    console.log("Window href: ", window.location.href);
     window.location.href =
       "https://accounts.spotify.com/authorize?client_id=" +
       spotifyClientId +
@@ -19,7 +17,6 @@ function Login() {
     <div className="page">
       <Layout>
         <Content>
-          {/* The style minHeight is necessary to ensure the row takes up the whole page */}
           <Row
             type="flex"
             justify="center"

@@ -10,6 +10,7 @@ const { Meta } = Card;
 
 function Playlists({ token, tracks, setTracks }) {
   const [playlists, setPlaylists] = useState({});
+  const [redoPlaylist, setRedoPlaylist] = useState(false);
 
   useEffect(() => {
     if (!Object.keys(playlists).length) {
@@ -42,6 +43,7 @@ function Playlists({ token, tracks, setTracks }) {
     if (tracks) {
       console.log("tracks: ", tracks);
       setTracks(tracks);
+      setRedoPlaylist(false);
     }
   }
 
@@ -103,12 +105,10 @@ function Playlists({ token, tracks, setTracks }) {
   return (
     <div className="page">
       {console.log(tracks)}
-      {tracks.length === 0 ? (
-        // clicking a playlist, tracks.length > 0
-        // but window.location.pathname === "/playlist"
+      {tracks.length === 0 || (tracks.length !== 0 && redo) ? (
         <div>{buildPlaylists()}</div>
       ) : (
-        <Redirect to="/artwork" />
+        <Generator tracks={tracks} redoPlaylist={redoPlaylist} />
       )}
     </div>
   );
