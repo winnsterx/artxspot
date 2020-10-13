@@ -5,18 +5,15 @@ const { Title } = Typography;
 
 function Artwork({ artwork, setRedoPlaylist, setArtwork }) {
   const title = artwork.title;
-
   const description = artwork.description;
   const permalink = artwork._links.permalink.href;
   const thumbnail = artwork._links.thumbnail.href;
 
   function anotherPlaylist() {
-    console.log("Clicked go back");
     setRedoPlaylist(true);
   }
 
   function anotherArt() {
-    console.log("Clicked another art");
     setArtwork(null);
   }
 
