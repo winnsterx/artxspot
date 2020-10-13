@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Card, Row, Col } from "antd";
-import { Redirect } from "react-router-dom";
 
 import SpotifyWebApi from "spotify-web-api-js";
-// import Generator from "./Generator";
+import Generator from "./Generator";
 
 const spotifyApi = new SpotifyWebApi();
 const { Meta } = Card;
 
-function Playlists({ token, tracks, setTracks }) {
+function Playlists({ token }) {
   const [playlists, setPlaylists] = useState({});
+  const [tracks, setTracks] = useState([]);
   const [redoPlaylist, setRedoPlaylist] = useState(false);
 
   useEffect(() => {
@@ -32,16 +32,13 @@ function Playlists({ token, tracks, setTracks }) {
     try {
       return await spotifyApi.getUserPlaylists();
     } catch (error) {
-      console.log(error);
       return null;
     }
   }
 
   async function selectPlaylist(playlist) {
-    console.log("Select playlist: ", playlist);
     let tracks = await getPlaylistTracks(playlist.id);
     if (tracks) {
-      console.log("tracks: ", tracks);
       setTracks(tracks);
       setRedoPlaylist(false);
     }
@@ -51,13 +48,11 @@ function Playlists({ token, tracks, setTracks }) {
     try {
       return await spotifyApi.getPlaylistTracks(id);
     } catch (error) {
-      console.log(error);
       return null;
     }
   }
 
   function buildPlaylistsRow(currRow) {
-    console.log("Building playlist row.");
     let arr = [];
     let end = Math.min(currRow * 3 + 3, playlists.length);
     arr.push(<Col span={2} />);
@@ -91,7 +86,6 @@ function Playlists({ token, tracks, setTracks }) {
   }
 
   function buildPlaylists() {
-    console.log("Building playlists again: ", token);
     let arr = [];
     let numPlaylists = playlists.length;
     let numCols = 3;
@@ -104,11 +98,14 @@ function Playlists({ token, tracks, setTracks }) {
 
   return (
     <div className="page">
-      {console.log(tracks)}
-      {tracks.length === 0 || (tracks.length !== 0 && redo) ? (
+      {tracks.length === 0 || (tracks.length !== 0 && redoPlaylist) ? (
         <div>{buildPlaylists()}</div>
       ) : (
-        <Generator tracks={tracks} redoPlaylist={redoPlaylist} />
+        <Generator
+          tracks={tracks}
+          redoPlaylist={redoPlaylist}
+          setRedoPlaylist={setRedoPlaylist}
+        />
       )}
     </div>
   );

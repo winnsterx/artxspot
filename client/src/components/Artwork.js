@@ -1,25 +1,23 @@
 import React from "react";
 import { Row, Col, Typography, Button } from "antd";
-import { Redirect, useHistory } from "react-router-dom";
 
 const { Title } = Typography;
 
-function Artwork({ artwork }) {
+function Artwork({ artwork, setRedoPlaylist }) {
   const title = artwork.title;
+
   const description = artwork.description;
   const permalink = artwork._links.permalink.href;
   const thumbnail = artwork._links.thumbnail.href;
-  const history = useHistory();
 
   function goBack() {
-    console.log("Apparently clicked");
-    return <Redirect to="/playlists" />;
+    console.log("Clicked go back");
+    setRedoPlaylist(true);
   }
 
   return (
     <div className="page">
-      <Row />
-      <Row justify="center" align="middle" style={{ minHeight: "100%" }}>
+      <Row justify="space-around" align="middle" style={{ minHeight: "100%" }}>
         <Col span={2} />
         <Col span={12}>
           <img
@@ -44,18 +42,7 @@ function Artwork({ artwork }) {
             size="large"
             onClick={goBack}
           >
-            another art!
-          </Button>
-          <br /> <br />
-          <Button
-            type="primary"
-            style={{
-              fontWeight: "bold",
-            }}
-            size="large"
-            onClick={goBack}
-          >
-            another playlist!
+            another playlist
           </Button>
         </Col>
         <Col span={2} />
