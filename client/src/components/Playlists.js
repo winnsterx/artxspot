@@ -30,7 +30,7 @@ function Playlists({ token }) {
 
   async function getPlaylistsHelper() {
     try {
-      return await spotifyApi.getUserPlaylists();
+      return await spotifyApi.getUserPlaylists({ limit: "48" });
     } catch (error) {
       return null;
     }
@@ -93,6 +93,7 @@ function Playlists({ token }) {
     for (let i = 0; i < numRows; i++) {
       arr.push(<Row style={{ marginTop: "2%" }}>{buildPlaylistsRow(i)}</Row>);
     }
+    arr.push(<br />);
     return arr;
   }
 

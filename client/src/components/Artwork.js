@@ -22,12 +22,7 @@ function Artwork({ artwork, setRedoPlaylist, setArtwork }) {
       <Row justify="space-around" align="middle" style={{ minHeight: "100%" }}>
         <Col span={2} />
         <Col span={12}>
-          <img
-            src={thumbnail}
-            alt={title}
-            width="90%"
-            style={{ marginTop: "10%" }}
-          />
+          <img src={thumbnail} alt={title} width="90%" />
         </Col>
         <Col span={1} />
         <Col span={7} style={{ textAlign: "left" }}>

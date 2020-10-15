@@ -22,7 +22,6 @@ function Generator({ tracks, setRedoPlaylist }) {
       .send({ client_id: artsyClientId, client_secret: artsyClientSecret })
       .then(function (response) {
         xappToken = response.body.token;
-        console.log("xapptoken: ", xappToken);
 
         request
           .get(artstSearchUrl)
@@ -31,7 +30,6 @@ function Generator({ tracks, setRedoPlaylist }) {
           .query({ type: "artwork" })
           .then((res) => {
             let artworks = res.body._embedded.results;
-            console.log("artsy's relevant artwork: ", artworks);
             let chosen = artworks[Math.floor(Math.random() * artworks.length)];
             setArtwork(chosen);
           })
@@ -63,13 +61,11 @@ function Generator({ tracks, setRedoPlaylist }) {
   return (
     <div className="page">
       {artwork ? (
-        <div>
-          <Artwork
-            artwork={artwork}
-            setRedoPlaylist={setRedoPlaylist}
-            setArtwork={setArtwork}
-          />
-        </div>
+        <Artwork
+          artwork={artwork}
+          setRedoPlaylist={setRedoPlaylist}
+          setArtwork={setArtwork}
+        />
       ) : (
         <div className="page">
           <Row justify="center" align="middle" style={{ minHeight: "100%" }}>

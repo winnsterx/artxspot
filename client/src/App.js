@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Layout } from "antd";
 
 import Login from "./components/Login";
 
@@ -29,12 +28,6 @@ function App() {
 
       setToken(hash.access_token);
     }
-    console.log(
-      "Token acquired correctly: ",
-      token,
-      " and window location: ",
-      window.location.hash
-    );
   }, [token]);
 
   return (
@@ -42,9 +35,7 @@ function App() {
       <div className="App">
         <Switch>
           <Route path="/callback">
-            <Layout>
-              <Playlists token={token} />
-            </Layout>
+            <Playlists token={token} />
           </Route>
           <Route path="/">
             <Login />

@@ -37,7 +37,6 @@ function Playlist({ tracks }) {
     if (tags.includes(tmp)) {
       alert("Add a different word!");
     } else {
-      console.log("e target: ", e.target.value);
       setTags(tags.concat(tmp));
     }
   }
