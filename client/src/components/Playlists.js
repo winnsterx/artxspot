@@ -154,16 +154,7 @@ function Playlists({ token }) {
             playlists.map(({ id, images, name, tracks }, i) => (
               <Playlist key={i}>
                 <PlaylistCover to={id}>
-                  {images.length ? (
-                    <PlaylistImage src={images[0].url} alt="Album Art" />
-                  ) : (
-                    <PlaceholderArtwork>
-                      <PlaceholderContent></PlaceholderContent>
-                    </PlaceholderArtwork>
-                  )}
-                  <PlaylistMask>
-                    <i className="fas fa-info-circle" />
-                  </PlaylistMask>
+                  <PlaylistImage src={images[0].url} alt="Album Art" />
                 </PlaylistCover>
                 <div>
                   <PlaylistName to={id}>{name}</PlaylistName>
