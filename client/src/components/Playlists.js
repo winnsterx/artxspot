@@ -1,14 +1,104 @@
 import React, { useState, useEffect } from "react";
-import { Card, Row, Col } from "antd";
+import { Link } from "react-router-dom";
+import Loader from "./Loader";
 
+import styled from "styled-components/macro";
+import { theme, mixins, media, Main } from "../styles";
 import SpotifyWebApi from "spotify-web-api-js";
 import Generator from "./Generator";
 
 const spotifyApi = new SpotifyWebApi();
-const { Meta } = Card;
+const { colors, fontSizes, spacing } = theme;
+
+const Wrapper = styled.div`
+  ${mixins.flexBetween};
+  align-items: flex-start;
+`;
+const PlaylistsContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: ${spacing.md};
+  width: 100%;
+  margin-top: 50px;
+  ${media.tablet`
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  `};
+  ${media.phablet`
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  `};
+`;
+const Playlist = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+`;
+const PlaylistMask = styled.div`
+  ${mixins.flexCenter};
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-size: 30px;
+  color: ${colors.white};
+  opacity: 0;
+  transition: ${theme.transition};
+`;
+const PlaylistImage = styled.img`
+  object-fit: cover;
+`;
+const PlaylistCover = styled(Link)`
+  ${mixins.coverShadow};
+  position: relative;
+  width: 100%;
+  margin-bottom: ${spacing.base};
+  &:hover,
+  &:focus {
+    ${PlaylistMask} {
+      opacity: 1;
+    }
+  }
+`;
+const PlaceholderArtwork = styled.div`
+  ${mixins.flexCenter};
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  background-color: ${colors.darkGrey};
+  svg {
+    width: 50px;
+    height: 50px;
+  }
+`;
+const PlaceholderContent = styled.div`
+  ${mixins.flexCenter};
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+`;
+const PlaylistName = styled(Link)`
+  display: inline;
+  border-bottom: 1px solid transparent;
+  &:hover,
+  &:focus {
+    border-bottom: 1px solid ${colors.white};
+  }
+`;
+const TotalTracks = styled.div`
+  text-transform: uppercase;
+  margin: 5px 0;
+  color: ${colors.lightGrey};
+  font-size: ${fontSizes.xs};
+  letter-spacing: 1px;
+`;
 
 function Playlists({ token }) {
-  const [playlists, setPlaylists] = useState({});
+  const [playlists, setPlaylists] = useState([]);
   const [tracks, setTracks] = useState([]);
   const [redoPlaylist, setRedoPlaylist] = useState(false);
 
@@ -16,12 +106,15 @@ function Playlists({ token }) {
     if (!Object.keys(playlists).length) {
       getPlaylists();
     }
+    console.log("Playlists fetched: ", playlists);
+    console.log("Type of Playlists: ", typeof playlists);
   });
 
   async function getPlaylists() {
     spotifyApi.setAccessToken(token);
     let pls = await getPlaylistsHelper();
     if (pls) {
+      console.log("pls: ", pls);
       setPlaylists(pls.items);
     } else {
       console.log("Error in fetching playlists. Check request in Spotify API.");
@@ -52,59 +145,38 @@ function Playlists({ token }) {
     }
   }
 
-  function buildPlaylistsRow(currRow) {
-    let arr = [];
-    let end = Math.min(currRow * 3 + 3, playlists.length);
-    arr.push(<Col span={2} />);
-    for (let j = currRow * 3; j < end; j++) {
-      let curr = playlists[j];
-      if (j === currRow * 3 + 1) arr.push(<Col span={1} />);
-      arr.push(
-        <Col span={6}>
-          <div onClick={() => selectPlaylist(curr)}>
-            <Card
-              size="small"
-              hoverable
-              cover={
-                <img
-                  alt={curr.name + "'s cover photo"}
-                  src={curr.images[0].url}
-                  className="card-cover"
-                />
-              }
-            >
-              <Meta title={curr.name} />
-            </Card>
-          </div>
-        </Col>
-      );
-      if (j === currRow * 3 + 1) arr.push(<Col span={1} />);
-    }
-    arr.push(<Col span={2} />);
-
-    return arr;
-  }
-
-  function buildPlaylists() {
-    let arr = [];
-    let numPlaylists = playlists.length;
-    let numCols = 3;
-    let numRows = Math.ceil(numPlaylists / numCols);
-    for (let i = 0; i < numRows; i++) {
-      arr.push(<Row style={{ marginTop: "2%" }}>{buildPlaylistsRow(i)}</Row>);
-    }
-    arr.push(<br />);
-    return arr;
-  }
-
   return (
-    <div className="page">
-      {tracks.length === 0 || (tracks.length !== 0 && redoPlaylist) ? (
-        <div>{buildPlaylists()}</div>
-      ) : (
-        <Generator tracks={tracks} setRedoPlaylist={setRedoPlaylist} />
-      )}
-    </div>
+    <Main>
+      <h2>Your Playlists</h2>
+      <Wrapper>
+        <PlaylistsContainer>
+          {playlists.length ? (
+            playlists.map(({ id, images, name, tracks }, i) => (
+              <Playlist key={i}>
+                <PlaylistCover to={id}>
+                  {images.length ? (
+                    <PlaylistImage src={images[0].url} alt="Album Art" />
+                  ) : (
+                    <PlaceholderArtwork>
+                      <PlaceholderContent></PlaceholderContent>
+                    </PlaceholderArtwork>
+                  )}
+                  <PlaylistMask>
+                    <i className="fas fa-info-circle" />
+                  </PlaylistMask>
+                </PlaylistCover>
+                <div>
+                  <PlaylistName to={id}>{name}</PlaylistName>
+                  <TotalTracks>{tracks.total} Tracks</TotalTracks>
+                </div>
+              </Playlist>
+            ))
+          ) : (
+            <Loader />
+          )}
+        </PlaylistsContainer>
+      </Wrapper>
+    </Main>
   );
 }
 

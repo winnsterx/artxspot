@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import Login from "./components/Login";
+import { GlobalStyle } from "./styles";
 
-import "./App.less";
+// import Login from "./components/Login";
+import LoginScreen from "./components/LoginScreen";
+// import "./App.less";
 
 // Lightweight wrapper for Spotify Web API, see
 // https://github.com/JMPerez/spotify-web-api-js/blob/master/src/spotify-web-api.js
@@ -28,17 +30,20 @@ function App() {
 
       setToken(hash.access_token);
     }
+    console.log("Token set:", token);
   }, [token]);
 
   return (
     <Router>
       <div className="App">
+        <GlobalStyle />
+
         <Switch>
           <Route path="/callback">
             <Playlists token={token} />
           </Route>
           <Route path="/">
-            <Login />
+            <LoginScreen />
           </Route>
         </Switch>
       </div>
