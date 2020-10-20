@@ -129,8 +129,9 @@ function Playlists({ token }) {
     }
   }
 
-  async function selectPlaylist(playlist) {
-    let tracks = await getPlaylistTracks(playlist.id);
+  async function selectPlaylist(id) {
+    console.log("Select playlist with id: ", id);
+    let tracks = await getPlaylistTracks(id);
     if (tracks) {
       setTracks(tracks);
       setRedoPlaylist(false);
@@ -147,12 +148,13 @@ function Playlists({ token }) {
 
   return (
     <Main>
-      <h2>Your Playlists</h2>
       <Wrapper>
+        <h2>Your Playlists</h2>
+
         <PlaylistsContainer>
           {playlists.length ? (
             playlists.map(({ id, images, name, tracks }, i) => (
-              <Playlist key={i}>
+              <Playlist key={i} onClick={() => selectPlaylist(id)}>
                 <PlaylistCover to={id}>
                   <PlaylistImage src={images[0].url} alt="Album Art" />
                 </PlaylistCover>
