@@ -108,6 +108,7 @@ function Playlists({ token }) {
     }
     console.log("Playlists fetched: ", playlists);
     console.log("Type of Playlists: ", typeof playlists);
+    console.log("Tracks: ", tracks);
   });
 
   async function getPlaylists() {
@@ -131,45 +132,52 @@ function Playlists({ token }) {
 
   async function selectPlaylist(id) {
     console.log("Select playlist with id: ", id);
-    let tracks = await getPlaylistTracks(id);
-    if (tracks) {
-      setTracks(tracks);
+    let tks = await getPlaylistTracks(id);
+    if (tks) {
+      setTracks(tks);
       setRedoPlaylist(false);
     }
   }
 
   async function getPlaylistTracks(id) {
+    console.log("Trying to get tracks for ", id);
     try {
       return await spotifyApi.getPlaylistTracks(id);
     } catch (error) {
+      console.log("Error in fetching tracks: ", error);
       return null;
     }
   }
 
   return (
-    <Main>
-      <Wrapper>
-        <h2>Your Playlists</h2>
-
-        <PlaylistsContainer>
-          {playlists.length ? (
-            playlists.map(({ id, images, name, tracks }, i) => (
-              <Playlist key={i} onClick={() => selectPlaylist(id)}>
-                <PlaylistCover to={id}>
-                  <PlaylistImage src={images[0].url} alt="Album Art" />
-                </PlaylistCover>
-                <div>
-                  <PlaylistName to={id}>{name}</PlaylistName>
-                  <TotalTracks>{tracks.total} Tracks</TotalTracks>
-                </div>
-              </Playlist>
-            ))
-          ) : (
-            <Loader />
-          )}
-        </PlaylistsContainer>
-      </Wrapper>
-    </Main>
+    <div>
+      {tracks.length === 0 || (tracks.length !== 0 && redoPlaylist) ? (
+        <Main>
+          <h2>Your Playlists</h2>
+          <Wrapper>
+            <PlaylistsContainer>
+              {playlists.length ? (
+                playlists.map(({ id, images, name, tracks }, i) => (
+                  <Playlist key={i} onClick={() => selectPlaylist(id)}>
+                    <PlaylistCover>
+                      <PlaylistImage src={images[0].url} alt="Album Art" />
+                    </PlaylistCover>
+                    <div>
+                      <PlaylistName>{name}</PlaylistName>
+                      <TotalTracks>{tracks.total} Tracks</TotalTracks>
+                    </div>
+                  </Playlist>
+                ))
+              ) : (
+                <Loader />
+              )}
+            </PlaylistsContainer>
+          </Wrapper>
+        </Main>
+      ) : (
+        <Generator tracks={tracks} setRedoPlaylist={setRedoPlaylist} />
+      )}
+    </div>
   );
 }
 

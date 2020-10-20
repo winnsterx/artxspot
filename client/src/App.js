@@ -42,7 +42,7 @@ function App() {
           <Route path="/callback">
             <Playlists token={token} />
           </Route>
-          <Route path="/">
+          <Route exact path="/">
             <LoginScreen />
           </Route>
         </Switch>
