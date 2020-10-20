@@ -1,7 +1,31 @@
 import React from "react";
 import { Row, Col, Typography, Button } from "antd";
+import styled from "styled-components";
+import { theme, mixins, media, Main } from "../styles";
 
 const { Title } = Typography;
+
+const Wrapper = styled.div`
+  ${mixins.flexBetween};
+  align-items: flex-start;
+`;
+
+const ArtworkContainer = styled.div`
+  display: flex;
+  text-align: center;
+`;
+
+const ArtworkImage = styled.img`
+  object-fit: cover;
+`;
+
+const ArtworkInfo = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+`;
 
 function Artwork({ artwork, setRedoPlaylist, setArtwork }) {
   const title = artwork.title;

@@ -1,15 +1,20 @@
-import React, { useState } from "react";
-import { Spin, Typography, Row } from "antd";
-// import Link from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import Loader from "./Loader";
+import { Main } from "../styles";
 
 import request from "superagent";
 import Artwork from "./Artwork";
 import { artsyClientId, artsyClientSecret, artstSearchUrl } from "../config";
-
-const { Title } = Typography;
+import styled from "styled-components";
 
 function Generator({ tracks, setRedoPlaylist }) {
   const [artwork, setArtwork] = useState(null);
+
+  useEffect(() => {
+    if (!artwork) {
+      generateArt();
+    }
+  });
 
   function generateArt() {
     var apiUrl = "https://api.artsy.net/api/tokens/xapp_token",
@@ -67,15 +72,10 @@ function Generator({ tracks, setRedoPlaylist }) {
           setArtwork={setArtwork}
         />
       ) : (
-        <div className="page">
-          <Row justify="center" align="middle" style={{ minHeight: "100%" }}>
-            <Typography>
-              <Title level={3}>generating...</Title>
-              <Spin size="large" />
-              {generateArt()}
-            </Typography>
-          </Row>
-        </div>
+        <Main>
+          <h2>Finding art</h2>
+          <Loader />
+        </Main>
       )}
     </div>
   );
