@@ -1,12 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { theme, mixins, media, Main } from "../styles";
-const { colors, fontSizes, spacing } = theme;
-
-const Wrapper = styled.div`
-  ${mixins.flexBetween};
-  align-items: flex-start;
-`;
+const { colors } = theme;
 
 const ArtworkContainer = styled.div``;
 
@@ -17,7 +12,7 @@ const ArtCover = styled.div`
   display: inline-block;
 `;
 const ArtworkInfo = styled.div`
-  width: 50%;
+  height: 50%;
   padding: 0 5% 0 5%;
   display: inline-block;
   position: absolute;
@@ -30,6 +25,7 @@ const AnotherButton = styled.button`
   margin-top: 10px;
   margin-right: 10px;
   padding: 12px 30px;
+  letter-spacing: 2px;
   background-color: ${colors.green};
   pointer-events: auto;
   cursor: pointer;
@@ -69,12 +65,10 @@ function Artwork({ artwork, setRedoPlaylist, setArtwork }) {
   const thumbnail = artwork._links.thumbnail.href;
 
   function anotherPlaylist() {
-    console.log("Another playlist");
     setRedoPlaylist(true);
   }
 
   function anotherArt() {
-    console.log("Another artwork");
     setArtwork(null);
   }
 
@@ -88,7 +82,7 @@ function Artwork({ artwork, setRedoPlaylist, setArtwork }) {
           <Name>{title}</Name>
           <Description>{description}</Description>
           <ArtsyLink href={permalink}>
-            learn more / get more a more HD look
+            Learn More / Get HD Look on Artsy
           </ArtsyLink>
           <AnotherButton onClick={() => anotherArt()}>
             Another Art
@@ -98,43 +92,6 @@ function Artwork({ artwork, setRedoPlaylist, setArtwork }) {
           </AnotherButton>
         </ArtworkInfo>
       </ArtworkContainer>
-
-      {/* <Row justify="space-around" align="middle" style={{ minHeight: "100%" }}>
-        <Col span={2} />
-        <Col span={12}>
-          <img src={thumbnail} alt={title} width="90%" />
-        </Col>
-        <Col span={1} />
-        <Col span={7} style={{ textAlign: "left" }}>
-          <Title level={2}>{title}</Title>
-          <Title level={3}>{description.toLowerCase()}</Title>
-          <Title level={3}>
-            <a href={permalink}>learn more / get more a more HD look lolll</a>
-          </Title>
-          <Button
-            type="primary"
-            style={{
-              fontWeight: "bold",
-            }}
-            size="large"
-            onClick={anotherPlaylist}
-          >
-            another playlist
-          </Button>
-          <br /> <br />
-          <Button
-            type="primary"
-            style={{
-              fontWeight: "bold",
-            }}
-            size="large"
-            onClick={anotherArt}
-          >
-            another art
-          </Button>
-        </Col>
-        <Col span={2} />
-      </Row> */}
     </Main>
   );
 }

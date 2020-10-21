@@ -14,6 +14,7 @@ const Wrapper = styled.div`
   ${mixins.flexBetween};
   align-items: flex-start;
 `;
+
 const PlaylistsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -27,11 +28,13 @@ const PlaylistsContainer = styled.div`
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   `};
 `;
+
 const Playlist = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
 `;
+
 const PlaylistMask = styled.div`
   ${mixins.flexCenter};
   position: absolute;
@@ -47,9 +50,11 @@ const PlaylistMask = styled.div`
   opacity: 0;
   transition: ${theme.transition};
 `;
+
 const PlaylistImage = styled.img`
   object-fit: cover;
 `;
+
 const PlaylistCover = styled(Link)`
   ${mixins.coverShadow};
   position: relative;
@@ -62,25 +67,7 @@ const PlaylistCover = styled(Link)`
     }
   }
 `;
-const PlaceholderArtwork = styled.div`
-  ${mixins.flexCenter};
-  position: relative;
-  width: 100%;
-  padding-bottom: 100%;
-  background-color: ${colors.darkGrey};
-  svg {
-    width: 50px;
-    height: 50px;
-  }
-`;
-const PlaceholderContent = styled.div`
-  ${mixins.flexCenter};
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-`;
+
 const PlaylistName = styled(Link)`
   display: inline;
   border-bottom: 1px solid transparent;
@@ -89,6 +76,7 @@ const PlaylistName = styled(Link)`
     border-bottom: 1px solid ${colors.white};
   }
 `;
+
 const TotalTracks = styled.div`
   text-transform: uppercase;
   margin: 5px 0;
@@ -106,16 +94,12 @@ function Playlists({ token }) {
     if (!Object.keys(playlists).length) {
       getPlaylists();
     }
-    console.log("Playlists fetched: ", playlists);
-    console.log("Type of Playlists: ", typeof playlists);
-    console.log("Tracks: ", tracks);
   });
 
   async function getPlaylists() {
     spotifyApi.setAccessToken(token);
     let pls = await getPlaylistsHelper();
     if (pls) {
-      console.log("pls: ", pls);
       setPlaylists(pls.items);
     } else {
       console.log("Error in fetching playlists. Check request in Spotify API.");
@@ -131,7 +115,6 @@ function Playlists({ token }) {
   }
 
   async function selectPlaylist(id) {
-    console.log("Select playlist with id: ", id);
     let tks = await getPlaylistTracks(id);
     if (tks) {
       setTracks(tks);
@@ -140,7 +123,6 @@ function Playlists({ token }) {
   }
 
   async function getPlaylistTracks(id) {
-    console.log("Trying to get tracks for ", id);
     try {
       return await spotifyApi.getPlaylistTracks(id);
     } catch (error) {

@@ -5,7 +5,6 @@ import { Main } from "../styles";
 import request from "superagent";
 import Artwork from "./Artwork";
 import { artsyClientId, artsyClientSecret, artstSearchUrl } from "../config";
-import styled from "styled-components";
 
 function Generator({ tracks, setRedoPlaylist }) {
   const [artwork, setArtwork] = useState(null);
@@ -73,7 +72,7 @@ function Generator({ tracks, setRedoPlaylist }) {
         />
       ) : (
         <Main>
-          <h2>Finding art</h2>
+          <h2>Finding Artwork...</h2>
           <Loader />
         </Main>
       )}

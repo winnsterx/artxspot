@@ -38,10 +38,26 @@ const LoginButton = styled.a`
   }
 `;
 
+const Credit = styled.h4`
+  position: absolute;
+  bottom: 0px;
+  right: 20px;
+`;
+
+const SpotifyProfile = styled.a`
+  color: ${colors.green};
+  margin-left: 5px;
+`;
 const LoginScreen = () => (
   <Login>
     <h1>Artsy x Spotify</h1>
     <LoginButton href={LOGIN_URI}>Log in to Spotify</LoginButton>
+    <Credit>
+      Framework inspired by bchiang7's
+      <SpotifyProfile href="https://github.com/bchiang7/spotify-profile">
+        Spotify Profile
+      </SpotifyProfile>
+    </Credit>
   </Login>
 );
 
