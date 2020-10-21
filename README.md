@@ -9,6 +9,14 @@
 
 
 
+## Iteration 3
+
+1. Eliminate critical errors in browser console
+
+2. Test across different browsers
+
+   
+
 ## Iteration 2
 
 1. Setting up comparative Spotify aesthetics 
