@@ -26,5 +26,5 @@ app.get("/", function (req, res) {
 
 app.listen(process.env.PORT || 8080, function () {
   console.log("Hostname: ", os.hostname());
-  console.log("metspot listening on port ", process.env.PORT || 8080);
+  console.log("artxspot listening on port ", process.env.PORT || 8080);
 });
