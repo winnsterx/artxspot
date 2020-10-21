@@ -4,7 +4,7 @@ import { Main } from "../styles";
 
 import request from "superagent";
 import Artwork from "./Artwork";
-import { artsyClientId, artsyClientSecret, artstSearchUrl } from "../config";
+import { artsyClientId, artsyClientSecret, artsySearchUrl } from "../config";
 
 function Generator({ tracks, setRedoPlaylist }) {
   const [artwork, setArtwork] = useState(null);
@@ -28,7 +28,7 @@ function Generator({ tracks, setRedoPlaylist }) {
         xappToken = response.body.token;
 
         request
-          .get(artstSearchUrl)
+          .get(artsySearchUrl)
           .set("X-Xapp-Token", xappToken)
           .query({ q: query })
           .query({ type: "artwork" })
