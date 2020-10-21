@@ -1,10 +1,10 @@
 ## Roadmap
 
-- [ ] Examine and incorporate bchang's Spotify components and style sheets 
-- [ ] Fonts alignment
-- [ ] Button alignment
-- [ ] Playlist alignment 
-- [ ] Colour alignment
+- [x] Examine and incorporate bchang's Spotify components and style sheets 
+- [x] Fonts alignment
+- [x] Button alignment
+- [x] Playlist alignment 
+- [x] Colour alignment
 - [ ] Design and improve Artsy matching algorithm 
 
 
