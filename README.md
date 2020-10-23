@@ -1,7 +1,7 @@
 ## Roadmap
 
 - [x] Examine and incorporate bchang's Spotify components and style sheets 
-- [x] Fonts alignment
+- [ ] Fonts alignment
 - [x] Button alignment
 - [x] Playlist alignment 
 - [x] Colour alignment
@@ -14,6 +14,8 @@
 1. Eliminate critical errors in browser console
 
 2. Test across different browsers
+
+3. Logout
 
    
 
