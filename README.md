@@ -6,6 +6,7 @@
 - [x] Playlist alignment 
 - [x] Colour alignment
 - [ ] Design and improve Artsy matching algorithm 
+- [ ] Change tab logo to Spotify
 
 
 

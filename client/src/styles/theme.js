@@ -13,7 +13,8 @@ const theme = {
   },
 
   fonts: {
-    primary: "Circular Std, system",
+    primary:
+      "Circular Std, system, -apple-system, BlinkMacSystemFont, sans-serif",
   },
 
   fontSizes: {
