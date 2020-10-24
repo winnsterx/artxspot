@@ -1,12 +1,12 @@
 ## Roadmap
 
 - [x] Examine and incorporate bchang's Spotify components and style sheets 
-- [ ] Fonts alignment
+- [x] Fonts alignment
 - [x] Button alignment
 - [x] Playlist alignment 
 - [x] Colour alignment
+- [x] Change tab logo to Spotify
 - [ ] Design and improve Artsy matching algorithm 
-- [ ] Change tab logo to Spotify
 
 
 
