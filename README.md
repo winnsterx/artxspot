@@ -1,13 +1,13 @@
 ## Roadmap
-
+- [ ] Add explanation / intro for the webapp in landing page
+- [ ] Clean up code
+- [ ] Design and improve Artsy matching algorithm 
 - [x] Examine and incorporate bchang's Spotify components and style sheets 
 - [x] Fonts alignment
 - [x] Button alignment
 - [x] Playlist alignment 
 - [x] Colour alignment
 - [x] Change tab logo to Spotify
-- [ ] Design and improve Artsy matching algorithm 
-
 
 
 ## Iteration 3
