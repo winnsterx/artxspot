@@ -56,6 +56,12 @@ const ArtsyLink = styled.h3`
   color: ${colors.white};
   font-weight: 700;
   font-size: 25px;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    color: ${colors.blue};
+  }
 `;
 
 function Artwork({ artwork, setRedoPlaylist, setArtwork }) {
@@ -81,8 +87,8 @@ function Artwork({ artwork, setRedoPlaylist, setArtwork }) {
         <ArtworkInfo>
           <Name>{title}</Name>
           <Description>{description}</Description>
-          <ArtsyLink href={permalink}>
-            Learn More / Get HD Look on Artsy
+          <ArtsyLink onClick={() => window.open(permalink)}>
+            Click to Learn More & Get a More HD Look on Artsy
           </ArtsyLink>
           <AnotherButton onClick={() => anotherArt()}>
             Another Art
